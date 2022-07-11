@@ -15,6 +15,7 @@ import (
 
 func main() {
 	pCustomGreeting := flag.String("greeting", "", "A custom greeting, only for jokes.")
+	pJiraBrowseUrl := flag.String("jira-browse-url", "https://jira.com/browse/", "Your Jira browse url")
 	pGithubToken := flag.String("github-token", "", "The github token to use (or use GITHUB_TOKEN)")
 	pGithubOrg := flag.String("github-org", "avxSre", "The github organization to fetch PR from")
 	pSlackTarget := flag.String("slack-target", "", "The slack target (channel, user) to send notification to.")
@@ -94,7 +95,7 @@ func main() {
 		}
 
 		if *pSlackTarget != "" {
-			out += result.SlackString()
+			out += result.SlackString(*pJiraBrowseUrl)
 		} else {
 			out += result.String()
 		}

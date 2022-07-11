@@ -36,18 +36,15 @@ func (pr PullRequest) String() string {
 	)
 }
 
-func (pr PullRequest) SlackString() string {
+func (pr PullRequest) SlackString(jiraBrowseUrl string) string {
 	cfg := timeago.NoMax(timeago.English)
 
 	title := pr.Title
 
-	// AVX[A-Z]*-[0-9]*
-	// slack: AVXSRE-292 => <https://aviatrix.atlassian.net/browse/AVXSRE-321|AVXSRE-321>
-
 	re := regexp.MustCompile(`AVX[A-Z]*-[0-9]*`)
 	jiraID := re.Find([]byte(title))
 
-	title = strings.Replace(title, string(jiraID), fmt.Sprintf("<https://aviatrix.atlassian.net/browse/%s|%s>", string(jiraID), string(jiraID)), -1)
+	title = strings.Replace(title, string(jiraID), fmt.Sprintf("<%s%s|%s>", jiraBrowseUrl, string(jiraID), string(jiraID)), -1)
 
 	return fmt.Sprintf(
 		"<%s|%s/%s#%d> by %s: %s updated %s\n",

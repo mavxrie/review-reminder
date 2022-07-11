@@ -32,6 +32,8 @@ Usage of ./review-reminder:
         A custom greeting, only for jokes.
   -how-many int
         Number of PR to list. (default 3)
+  -jira-browse-url string
+        Your Jira browse url (default "https://jira.com/browse/")
   -slack-target string
         The slack target (channel, user) to send notification to.
   -slack-token string
